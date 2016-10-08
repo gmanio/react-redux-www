@@ -6,12 +6,12 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var webpackOutputPublicPath = '/dist/';
 
 module.exports = {
-    devtool: 'eval',
-    debug: true,
+    // devtool: 'eval',
+    debug: false,
     entry: [
-        'react-hot-loader/patch',
-        'webpack-dev-server/client?http://localhost:3000',
-        'webpack/hot/only-dev-server',
+        // 'react-hot-loader/patch',
+        // 'webpack-dev-server/client?http://localhost:3000',
+        // 'webpack/hot/only-dev-server',
         './src/index'
     ],
     output: {
