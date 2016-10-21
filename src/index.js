@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { browserHistory, Router } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
+
 import configureStore from './stores';
 import routes from './routes';
 
@@ -14,5 +15,9 @@ render(
     <Provider store={store}>
         <Router history={history} routes={routes} />
     </Provider>,
-    document.getElementById('app')
+    document.getElementById('wrap')
+);
+
+store.subscribe(() =>
+    console.log(store.getState())
 );

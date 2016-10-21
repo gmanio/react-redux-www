@@ -1,7 +1,7 @@
 const redux = require('redux');
 const reducers = require('../reducers');
 
-module.exports = function(initialState) {
+export default function(initialState) {
     const store = redux.createStore(reducers, initialState, redux.compose(
         window.devToolsExtension ? window.devToolsExtension() : f => f
     ));

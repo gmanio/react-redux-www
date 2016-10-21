@@ -1,16 +1,18 @@
-// import Index from './containers/routes/Index';
-// import Self from './containers/routes/Self';
 import App from './containers/App';
+
+import {
+    LoaderComponent,
+    GpsComponent,
+    CounterComponent,
+    NavComponent
+} from './components/index'
 
 const routes = [
     { path: '/',
         component: App,
         // childRoutes: [
-        //     { path: 'example',
-        //         component: Index
-        //     },
-        //     { path: 'example/self',
-        //         component: Self
+        //     { path: 'nav',
+        //         component: NavComponent
         //     }
         // ]
     }

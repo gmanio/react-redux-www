@@ -1,27 +1,19 @@
 var path = require('path');
 var webpack = require('webpack');
-// var webpackConfigModuleLoader = require('./webpack.config.moduleLoader');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var webpackOutputPublicPath = '/dist/';
-
 module.exports = {
-    // devtool: 'eval',
-    debug: false,
+    // devtool: 'eval-source-map',
+    // debug: true,
     entry: [
-        // 'react-hot-loader/patch',
-        // 'webpack-dev-server/client?http://localhost:3000',
-        // 'webpack/hot/only-dev-server',
         './src/index'
     ],
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: 'bundle.js',
-        publicPath: webpackOutputPublicPath
+        filename: 'bundle.js'
     },
     plugins: [
         new ExtractTextPlugin("[name].css"),
-        new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
                 // This has effect on the react lib size
@@ -69,17 +61,5 @@ module.exports = {
                 loader: 'file-loader'
             }
         ]
-    },
-
-    devServer: {
-        port: 3000,
-        publicPath: webpackOutputPublicPath,
-        hot: true,
-        inline: true,
-        colors: true,
-        historyApiFallback: true,
-        compress: true,
-        quiet: false,
-        progress: true
     }
 }
