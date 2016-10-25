@@ -101,13 +101,15 @@ class YoutubeComponent extends Component {
             var player = new YT.Player('ytplayer', {
                 height: window.innerHeight,
                 width: window.innerWidth,
-                videoId: item.id.videoId
+                videoId: item.id.videoId,
+                autoplay: 1
             });
         } else {
             var player = new YT.Player('ytplayer', {
                 height: window.innerHeight,
                 width: window.innerWidth,
-                videoId: item.id.playlistId
+                videoId: item.id.playlistId,
+                autoplay: 1
             });
         }
     }
