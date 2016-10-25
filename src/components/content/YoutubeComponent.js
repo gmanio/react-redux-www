@@ -19,11 +19,11 @@ class YoutubeComponent extends Component {
             }
         });
 
-        window.addEventListener('touchend', ()=> {
+        window.addEventListener('scroll', ()=> {
             let windowHeight = window.document.body.offsetHeight;
-            if (window.scrollY >= (windowHeight / 2)) {
-
+            if (window.scrollY >= (windowHeight / 1.5)) {
                 if(this.onLoading == false){
+                    this.onLoading = true;
                     setTimeout(()=> {
                         this.sendRequest({pageToken: this.state.nextPageToken});
                     }, 500);
@@ -102,14 +102,22 @@ class YoutubeComponent extends Component {
                 height: window.innerHeight,
                 width: window.innerWidth,
                 videoId: item.id.videoId,
-                autoplay: 1
+                events: {
+                    'onReady': (e)=>{
+                        e.target.playVideo();
+                    }
+                }
             });
         } else {
             var player = new YT.Player('ytplayer', {
                 height: window.innerHeight,
                 width: window.innerWidth,
                 videoId: item.id.playlistId,
-                autoplay: 1
+                events: {
+                    'onReady': (e)=>{
+                        e.target.playVideo();
+                    }
+                }
             });
         }
     }
