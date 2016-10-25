@@ -5,6 +5,8 @@ import style from '../../styles/youtube_loading.css';
 class YoutubeComponent extends Component {
     constructor(props) {
         super(props);
+        this.itemList = [];
+        this.onLoading = false;
         this.setLoadClient();
         this.attachedEvent();
     }
@@ -15,15 +17,17 @@ class YoutubeComponent extends Component {
                 document.getElementById('ytplayer').setAttribute('width', window.innerWidth);
                 document.getElementById('ytplayer').setAttribute('height', window.innerHeight);
             }
-
-            window.scrollTo(0, document.body.scrollHeight);
         });
 
-        window.addEventListener('touchend', (e)=> {
+        window.addEventListener('touchend', ()=> {
             let windowHeight = window.document.body.offsetHeight;
-            if(window.scrollY >= (windowHeight / 2)){
-            //    do fetch
-                console.log('test');
+            if (window.scrollY >= (windowHeight / 2)) {
+
+                if(this.onLoading == false){
+                    setTimeout(()=> {
+                        this.sendRequest({pageToken: this.state.nextPageToken});
+                    }, 500);
+                }
             }
         })
     }
@@ -36,11 +40,12 @@ class YoutubeComponent extends Component {
     }
 
     sendRequest(query) {
+        this.onLoading = true;
+
         var options = {
             part: 'snippet', //required
             q: 'teamcoco',
             order: 'date',
-            pageToken: 'CBQQAA',
             maxResults: 10
         }
 
@@ -54,7 +59,15 @@ class YoutubeComponent extends Component {
     }
 
     onSuccess(res) {
-        this.setState({res: res});
+        this.result = res.result;
+        this.itemList = this.itemList.concat(this.result.items);
+        this.setState({
+            nextPageToken: this.result.nextPageToken,
+            prevPageToken: this.result.prevPageToken,
+            res: res
+        });
+
+        this.onLoading = false;
     }
 
     onError(err) {
@@ -62,15 +75,27 @@ class YoutubeComponent extends Component {
     }
 
     onPlaying(item) {
-        if (document.querySelector('iframe#ytplayer')) {
-            document.querySelector('iframe#ytplayer').remove();
+        if (document.querySelector('.wrap_player')) {
+            document.querySelector('.wrap_player').remove();
         }
+
+        let wrapPlayer = document.createElement('div');
+        wrapPlayer.setAttribute('class', 'wrap_player');
+
+        let cancelBtn = document.createElement('a');
+        cancelBtn.setAttribute('class', 'btn_cle');
+        cancelBtn.addEventListener('click', ()=>{
+            document.querySelector('.wrap_player').remove();
+        })
 
         let tempPlayer = document.createElement('div');
         tempPlayer.setAttribute('id', 'ytplayer');
         tempPlayer.setAttribute('class', 'ytplayer');
 
-        document.getElementById('wrap').appendChild(tempPlayer);
+        wrapPlayer.appendChild(tempPlayer);
+        wrapPlayer.appendChild(cancelBtn);
+
+        document.getElementById('wrap').appendChild(wrapPlayer);
 
         if (item.id.videoId) {
             var player = new YT.Player('ytplayer', {
@@ -85,25 +110,19 @@ class YoutubeComponent extends Component {
                 videoId: item.id.playlistId
             });
         }
-
-
-        window.scrollTo(0, document.body.scrollHeight);
     }
 
-    render(res) {
+    render() {
         if (this.state) {
-            let items = this.state.res.result.items;
-            console.dir(this.state.res.result.nextPageToken);
             return (
                 <div>
                     <ul>
-                        {items.map((item, idx)=> {
+                        {this.itemList.map((item, idx)=> {
                             let snippet = item.snippet;
                             let videoId = item.id.videoId;
                             return (
                                 <li key={idx} onClick={this.onPlaying.bind(null, item)}>
-                                    {/*<span>{snippet.description}</span>*/}
-                                    <img src={snippet.thumbnails.high.url} width="100%" height="200px"></img>
+                                    <img src={snippet.thumbnails.high.url} width="100%" height="100%"></img>
                                 </li>
                             )
                         })}

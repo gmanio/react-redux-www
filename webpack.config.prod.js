@@ -6,6 +6,8 @@ module.exports = {
     // devtool: 'eval-source-map',
     // debug: true,
     entry: [
+        './vendor/player_api.js',
+        './vendor/gapi.js',
         './src/index'
     ],
     output: {

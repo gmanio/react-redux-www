@@ -1,8 +1,9 @@
 # WWW
 
-powered by Babel + Webpack + React.
+powered by Babel + Webpack + React
 
 > GmanPark @ 2016
+[Absolute DEMO link](https://gman.io/youtube)
 
 * * *
 
