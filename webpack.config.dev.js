@@ -4,12 +4,13 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     devtool: 'eval-source-map',
-    debug: true,
+    debug: false,
     entry: [
         'react-hot-loader/patch',
         'webpack-dev-server/client?http://localhost:3000',
         'webpack/hot/only-dev-server',
-        "./vendor/gapi.js",
+        './vendor/player_api.js',
+        './vendor/gapi.js',
         './src/index',
     ],
     output: {

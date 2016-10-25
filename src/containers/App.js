@@ -21,22 +21,21 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-        window.addEventListener('click', ()=> {
-            this.setState({showLoader: false});
-        });
+
     }
 
     render() {
         return (
             <div>
                 <header>
+                    <div className="title">
+                        <span className="tit_desc">Youtube</span>
+                    </div>
                     <NavComponent/>
                 </header>
                 <div className="container">
                     <YoutubeComponent/>
                 </div>
-                { this.state.showLoader ? <LoaderComponent/> : null }
-                {/*<CounterComponent/>*/}
             </div>
         )
     }

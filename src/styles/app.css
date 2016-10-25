@@ -4,6 +4,13 @@ header{
     background: #19bee1;
 }
 
+.title{
+    text-align: center;
+    line-height:50px;
+    font-weight:bold;
+    font-family: "Lucida Calligraphy";
+}
+
 .container{
     overflow: hidden;
     display: block;
