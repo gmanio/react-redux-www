@@ -44,7 +44,7 @@ class YoutubeComponent extends Component {
 
         var options = {
             part: 'snippet', //required
-            q: 'teamcoco',
+            q: 'ps4',
             order: 'date',
             maxResults: 10
         }
